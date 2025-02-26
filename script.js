@@ -8,6 +8,7 @@ let code = '';
 let arr = [];
 let first = [];
 let matrix = [];
+let isProcessing = false; 
 
 // Push elements to array
 for (let i = 1; i <= 8; i++) {
@@ -62,6 +63,8 @@ function turnBack() {
 let locked = [];
 
 function show(i, j) {
+    if (isProcessing) return; 
+
     const cell = document.getElementById(`x${i}${j}`);
 
     if (first.length && (i === first[0] && j === first[1]) || locked.some(e => e[0] === i && e[1] === j)) return;
@@ -69,17 +72,21 @@ function show(i, j) {
     cell.style.backgroundImage = `url('assets/${matrix[i][j]}.png')`;
 
     if (first.length) {
+        isProcessing = true; 
+
         if (matrix[i][j] !== matrix[first[0]][first[1]]) {
             setTimeout(function () {
                 const prev = document.getElementById(`x${first[0]}${first[1]}`);
                 prev.style.backgroundImage = `url('assets/0.png')`;
                 cell.style.backgroundImage = `url('assets/0.png')`;
                 first = [];
+                isProcessing = false; 
             }, 1000);
         } else {
             locked.push([i, j], [first[0], first[1]]);
             first = [];
             count++;
+            isProcessing = false; 
 
             if (count == 8) {
                 resultText.innerHTML = `
@@ -94,7 +101,6 @@ function show(i, j) {
         first = [i, j];
     }
 }
-
 
 // Identify playAgain function
 function playAgain() {
