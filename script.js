@@ -8,7 +8,7 @@ let code = '';
 let arr = [];
 let first = [];
 let matrix = [];
-let isProcessing = false; 
+let isProcessing = false;
 
 // Push elements to array
 for (let i = 1; i <= 8; i++) {
@@ -56,7 +56,7 @@ setTimeout(turnBack, 2500);
 function turnBack() {
     const tableItem = document.querySelectorAll('td');
     for (const elm of tableItem) {
-        elm.style.backgroundImage = `url('assets/0.png')`;
+        setBackground(elm,0);
     }
 }
 
@@ -69,7 +69,7 @@ function show(i, j) {
 
     if (first.length && (i === first[0] && j === first[1]) || locked.some(e => e[0] === i && e[1] === j)) return;
 
-    cell.style.backgroundImage = `url('assets/${matrix[i][j]}.png')`;
+    setBackground(cell,matrix[i][j]);
 
     if (first.length) {
         isProcessing = true; 
@@ -77,8 +77,8 @@ function show(i, j) {
         if (matrix[i][j] !== matrix[first[0]][first[1]]) {
             setTimeout(function () {
                 const prev = document.getElementById(`x${first[0]}${first[1]}`);
-                prev.style.backgroundImage = `url('assets/0.png')`;
-                cell.style.backgroundImage = `url('assets/0.png')`;
+                setBackground(prev,0);
+                setBackground(cell,0);
                 first = [];
                 isProcessing = false; 
             }, 1000);
@@ -110,4 +110,9 @@ function playAgain() {
     createMatrix();
     createTable();
     setTimeout(turnBack, 2000);
+}
+
+// Identify setBackground function
+function setBackground(elm, img){
+    elm.style.backgroundImage = `url('assets/${img}.png')`
 }
