@@ -30,10 +30,10 @@
     gap: 50px;
     
     .result-text {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 50px;
+        text-align: center;
+        * {
+            margin: 10px 0;
+        }
         h1 {
             font: 900 2.5em 'Roboto', sans-serif;
             color: green;
@@ -47,6 +47,7 @@
             border-radius: 20px;
             font: bold 1em 'Roboto', sans-serif;
             transition: .2s ease-in-out;
+            color: black;
 
             &:active {
                 scale: .9;
